@@ -12,8 +12,8 @@ public class PlanetStatBar extends StatBar {
     public Planet planet;
     private Color startColor;
     private Color endColor;
-    public PlanetStatBar(Point screenPosition, Point dimensions, Planet planet, Color startColor, Color endColor){
-        super(screenPosition, dimensions);
+    public PlanetStatBar(Point screenPosition, Point dimensions, Planet planet, Color startColor, Color endColor, String label){
+        super(screenPosition, dimensions, label);
         this.planet = planet;
         this.startColor = startColor;
         this.endColor = endColor;

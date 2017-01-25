@@ -8,6 +8,8 @@ import ui.bars.TemperatureBar;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
 public class Main extends Canvas implements Runnable {
@@ -26,11 +28,21 @@ public class Main extends Canvas implements Runnable {
     private Planet planet = null;
     private StatBar tempBar = null;
     private StatBar atmoBar = null;
+    public static Font FONT;
     private synchronized void start() {
         addKeyListener(keyInput);
         addMouseListener(new MouseInput());
         this.requestFocus();
-
+        //ART and FONT ASSETS INIT
+        try {
+            FONT = Font.createFont(Font.TRUETYPE_FONT, new File("Montserrat-Light.ttf"));
+        } catch (FontFormatException e) {
+            e.printStackTrace();
+            System.out.println("FONT NO WORKY.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("IDK");
+        }
         Assets.init();
 //        player = new Player(this, new Point(100, 100), new Point(0,0));
         planet = new Planet(new Point(445,445), new Point(0,0), 1.0, 0.0);
@@ -79,8 +91,8 @@ public class Main extends Canvas implements Runnable {
             frames++;
 
             if(System.currentTimeMillis() - timer > 1000){
-                System.out.println(frames);
-                System.out.println(updates);
+                System.out.println("FPS: " + frames);
+                System.out.println("UPS: " + updates);
                 timer += 1000;
                 updates = 0;
                 frames = 0;
@@ -116,6 +128,7 @@ public class Main extends Canvas implements Runnable {
         g2d.fillRect(0, 0, getWidth(), getHeight());
 
         //draw stuff
+        g2d.setFont(new Font(FONT.getFontName(), Font.PLAIN, 14));
         planet.render(g2d);
         tempBar.render(g2d);
         atmoBar.render(g2d);

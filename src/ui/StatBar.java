@@ -1,12 +1,13 @@
 package ui;
 
 import java.awt.*;
+import java.io.File;
 
 public abstract class StatBar extends Element{
-    public double fullness;
-    public Color currentColor;
-    public StatBar(Point screenPosition, Point dimensions){
-        super(screenPosition, dimensions);
+    protected double fullness;
+    protected Color currentColor;
+    public StatBar(Point screenPosition, Point dimensions, String label){
+        super(screenPosition, dimensions, label);
         this.currentColor = new Color(0, 0, 0);
     }
 
@@ -14,6 +15,7 @@ public abstract class StatBar extends Element{
         g.setPaint(currentColor);
         g.drawRect(screenPosition.x, screenPosition.y, dimensions.x, dimensions.y );
         g.fillRect(screenPosition.x, (int) (screenPosition.y + dimensions.y - fullness * dimensions.y+1), dimensions.x+1, (int) (fullness * dimensions.y));
+        if(label != null) g.drawString(label, screenPosition.x, screenPosition.y - 25);
     }
 
     public abstract void tick();

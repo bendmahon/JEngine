@@ -19,8 +19,8 @@ public class Planet extends Entity{
 
     @Override
     public void tick() {
-        this.temperature += 0.001;
-        this.atmosphere -= 0.001;
+        this.temperature += 0.002;
+        this.atmosphere -= 0.002;
         //Check values to make sure they are valid
         if(this.temperature < 0) this.temperature = 0;
         if(this.atmosphere < 0) this.atmosphere = 0;
