@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class TemperatureBar extends PlanetStatBar {
     public TemperatureBar(Point screenPosition, Point dimensions, Planet planet, Color startColor, Color endColor){
-        super(screenPosition, dimensions, planet, startColor, endColor, "Temperature");
+        super(screenPosition, dimensions, planet, startColor, endColor, "Temp");
     }
 
     @Override
