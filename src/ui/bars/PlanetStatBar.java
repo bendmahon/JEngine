@@ -1,13 +1,14 @@
-package ui;
+package ui.bars;
 
 import objects.Planet;
+import ui.StatBar;
 
 import java.awt.*;
 
 /**
  * Created by bendm_000 on 1/25/2017.
  */
-public class PlanetStatBar extends StatBar{
+public class PlanetStatBar extends StatBar {
     public Planet planet;
     private Color startColor;
     private Color endColor;

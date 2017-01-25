@@ -1,10 +1,9 @@
 package core;
 
 import objects.Planet;
-import objects.Player;
-import ui.AtmosphereBar;
+import ui.bars.AtmosphereBar;
 import ui.StatBar;
-import ui.TemperatureBar;
+import ui.bars.TemperatureBar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +14,7 @@ public class Main extends Canvas implements Runnable {
     private static final int WIDTH = (int) 990;
     private static final int HEIGHT = (int) 990;
 
-    private final String title = "Game";
+    private final String title = "Terra";
 
     private boolean running = false;
     private Thread thread;

@@ -3,9 +3,9 @@ package ui;
 import java.awt.*;
 
 public abstract class StatBar extends Element{
-    double fullness;
-    Color currentColor;
-    StatBar(Point screenPosition, Point dimensions){
+    public double fullness;
+    public Color currentColor;
+    public StatBar(Point screenPosition, Point dimensions){
         super(screenPosition, dimensions);
         this.currentColor = new Color(0, 0, 0);
     }
