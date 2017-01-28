@@ -5,7 +5,6 @@ import ui.Element;
 import ui.bars.AtmosphereBar;
 import ui.StatBar;
 import ui.bars.TemperatureBar;
-import util.Collisions;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +12,6 @@ import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Main extends Canvas implements Runnable {
     private static final int WIDTH = (int) 990;
@@ -23,17 +21,12 @@ public class Main extends Canvas implements Runnable {
 
     private boolean running = false;
     private Thread thread;
-
-    private Random rand = new Random();
-
     private KeyInput keyInput = new KeyInput();
 
     private static Planet planet = null;
-    private StatBar tempBar = null;
-    private StatBar atmoBar = null;
-    public static Font FONT;
+    private Font FONT;
     public static Mouse mouse = new Mouse();
-    ArrayList<Element> uiElements;
+    private ArrayList<Element> uiElements;
     public static Color backgroundColor = new Color(20, 20, 20);
     private synchronized void start() {
         addKeyListener(keyInput);
@@ -54,9 +47,9 @@ public class Main extends Canvas implements Runnable {
 //        player = new Player(this, new Point(100, 100), new Point(0,0));
         planet = new Planet(new Point(0,0), 50, new Point(0,0), new Point(0, 0), 1.0, 0.0);
         //Create UI Elements
-        tempBar = new TemperatureBar(new Point(600, 600), new Point(50, 150), planet,
+        StatBar tempBar = new TemperatureBar(new Point(600, 600), new Point(50, 150), planet,
                 Color.decode("#00ABFF"), Color.decode("#FF0000"));
-        atmoBar = new AtmosphereBar(new Point(675, 600), new Point(50, 150), planet,
+        StatBar atmoBar = new AtmosphereBar(new Point(675, 600), new Point(50, 150), planet,
                 Color.decode("#333333"), Color.decode("#00D5FF"));
         uiElements = new ArrayList<>();
         uiElements.add(tempBar);
@@ -129,7 +122,7 @@ public class Main extends Canvas implements Runnable {
 
         Graphics2D g2d = (Graphics2D) bs.getDrawGraphics();
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        /**
+        /*
          * DRAW STUFF UNDER HERE
          * Like "g2d.(BufferedImage object, int x, int y, this)"
          */
@@ -153,11 +146,10 @@ public class Main extends Canvas implements Runnable {
         JFrame frame;
         frame = new JFrame(game.title);
         frame.add(game);
-        frame.setResizable(false);
         frame.pack();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
-
+        frame.setResizable(false);
         frame.setVisible(true);
         frame.setAutoRequestFocus(true);
         game.start();

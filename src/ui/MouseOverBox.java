@@ -5,9 +5,6 @@ import java.awt.*;
 import static core.Main.backgroundColor;
 import static core.Main.mouse;
 
-/**
- * Created by mahonbd on 1/28/2017.
- */
 public class MouseOverBox extends Element {
     public MouseOverBox(Point screenPosition, Point dimensions, String label){
         super(screenPosition, dimensions, label);

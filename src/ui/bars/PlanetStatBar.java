@@ -5,14 +5,11 @@ import ui.StatBar;
 
 import java.awt.*;
 
-/**
- * Created by bendm_000 on 1/25/2017.
- */
-public class PlanetStatBar extends StatBar {
-    public Planet planet;
+class PlanetStatBar extends StatBar {
+    Planet planet;
     private Color startColor;
     private Color endColor;
-    public PlanetStatBar(Point screenPosition, Point dimensions, Planet planet, Color startColor, Color endColor, String label){
+    PlanetStatBar(Point screenPosition, Point dimensions, Planet planet, Color startColor, Color endColor, String label){
         super(screenPosition, dimensions, label);
         this.planet = planet;
         this.startColor = startColor;
@@ -29,7 +26,7 @@ public class PlanetStatBar extends StatBar {
         super.render(g);
     }
 
-    public Color barColor(double fullness) {
+    Color barColor(double fullness) {
         int rdiff = endColor.getRed() - startColor.getRed();
         int gdiff = endColor.getGreen() - startColor.getGreen();
         int bdiff = endColor.getBlue() - startColor.getBlue();

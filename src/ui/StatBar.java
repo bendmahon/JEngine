@@ -1,7 +1,6 @@
 package ui;
 
 import java.awt.*;
-import java.io.File;
 
 public abstract class StatBar extends Element{
     protected double fullness;
