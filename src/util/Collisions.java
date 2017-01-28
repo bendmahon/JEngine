@@ -15,7 +15,14 @@ public class Collisions {
     }
     //TODO: pointCircleCollision
     public static boolean pointCircleCollision(Point p, Point circle, int radius){
-        return false;
+        return distanceFormula(p, new Point(circle.x + radius, circle.y + radius)) <= radius;
     }
     //TODO: circleCircleCollision
+    public static boolean circleCircleCollision(Point circle1, Point circle2, int r1, int r2){
+        return distanceFormula(new Point(circle1.x + r1, circle1.y + r1), new Point(circle2.x + r2, circle2.y + r2)) < r1 + r2;
+    }
+    private static int distanceFormula(Point p, Point p2){
+        double dist = Math.sqrt(Math.pow(p2.x - p.x , 2)+ Math.pow(p2.y - p.y, 2));
+        return (int) dist;
+    }
 }

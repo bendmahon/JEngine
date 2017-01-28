@@ -4,6 +4,7 @@ import objects.Planet;
 import ui.bars.AtmosphereBar;
 import ui.StatBar;
 import ui.bars.TemperatureBar;
+import util.Collisions;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,12 +26,12 @@ public class Main extends Canvas implements Runnable {
 
     private KeyInput keyInput = new KeyInput();
 
-    private Planet planet = null;
+    private static Planet planet = null;
     private StatBar tempBar = null;
     private StatBar atmoBar = null;
     public static Font FONT;
     private MouseInput mouse = new MouseInput();
-    private static Point mousePos = new Point(0, 0);
+    public static Point mousePos = new Point(0, 0);
     private synchronized void start() {
         addKeyListener(keyInput);
         addMouseListener(new MouseInput());
@@ -47,7 +48,7 @@ public class Main extends Canvas implements Runnable {
         }
         Assets.init();
 //        player = new Player(this, new Point(100, 100), new Point(0,0));
-        planet = new Planet(new Point(0,0), new Point(0,0), 1.0, 0.0);
+        planet = new Planet(new Point(0,0), 50, new Point(0,0), 1.0, 0.0);
         tempBar = new TemperatureBar(new Point(600, 600), new Point(50, 150), planet,
                 Color.decode("#00ABFF"), Color.decode("#FF0000"));
         atmoBar = new AtmosphereBar(new Point(675, 600), new Point(50, 150), planet,
@@ -165,7 +166,8 @@ public class Main extends Canvas implements Runnable {
 
     public static void updateMouse(Point mousePosition){
         mousePos = mousePosition;
-        Killer.killMyFriend("Nick");
+        System.out.println(Collisions.pointCircleCollision(mousePos, planet.position, planet.radius));
+//        Killer.killMyFriend("Nick");
     }
 
 }
