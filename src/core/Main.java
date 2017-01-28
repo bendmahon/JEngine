@@ -1,6 +1,7 @@
 package core;
 
 import objects.Planet;
+import ui.Element;
 import ui.bars.AtmosphereBar;
 import ui.StatBar;
 import ui.bars.TemperatureBar;
@@ -11,6 +12,7 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Main extends Canvas implements Runnable {
@@ -30,11 +32,14 @@ public class Main extends Canvas implements Runnable {
     private StatBar tempBar = null;
     private StatBar atmoBar = null;
     public static Font FONT;
-    private MouseInput mouse = new MouseInput();
+    public static Mouse mouse = new Mouse();
     public static Point mousePos = new Point(0, 0);
+    ArrayList<Element> uiElements;
+    public static Color backgroundColor = new Color(20, 20, 20);
     private synchronized void start() {
         addKeyListener(keyInput);
-        addMouseListener(new MouseInput());
+        addMouseListener(mouse);
+        addMouseMotionListener(mouse);
         this.requestFocus();
         //ART and FONT ASSETS INIT
         try {
@@ -48,11 +53,15 @@ public class Main extends Canvas implements Runnable {
         }
         Assets.init();
 //        player = new Player(this, new Point(100, 100), new Point(0,0));
-        planet = new Planet(new Point(0,0), 50, new Point(0,0), 1.0, 0.0);
+        planet = new Planet(new Point(0,0), 50, new Point(0,0), new Point(0, 0), 1.0, 0.0);
+        //Create UI Elements
         tempBar = new TemperatureBar(new Point(600, 600), new Point(50, 150), planet,
                 Color.decode("#00ABFF"), Color.decode("#FF0000"));
         atmoBar = new AtmosphereBar(new Point(675, 600), new Point(50, 150), planet,
                 Color.decode("#333333"), Color.decode("#00D5FF"));
+        uiElements = new ArrayList<>();
+        uiElements.add(tempBar);
+        uiElements.add(atmoBar);
         //Create thread
         if(running) return;
         running = true;
@@ -108,8 +117,7 @@ public class Main extends Canvas implements Runnable {
     private void tick(){
         keyInput.tick();
         planet.tick();
-        tempBar.tick();
-        atmoBar.tick();
+        for(Element e : uiElements) e.tick();
     }
 
     private void render(){
@@ -133,8 +141,8 @@ public class Main extends Canvas implements Runnable {
         //draw stuff
         g2d.setFont(new Font(FONT.getFontName(), Font.PLAIN, 14));
         planet.render(g2d);
-        tempBar.render(g2d);
-        atmoBar.render(g2d);
+        //render ui elements
+        for(Element e : uiElements) e.render(g2d);
         //Throw away drawings and show buffer
         g2d.dispose();
         bs.show();

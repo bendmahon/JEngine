@@ -13,8 +13,8 @@ public class Player extends Entity{
     private KeyInput keyInput;
     private Main game;
 
-    public Player(Main game, Point position, Point velocity){
-        super(position, velocity);
+    public Player(Main game, Point position, Point velocity, Point accleration){
+        super(position, velocity, accleration);
         this.game = game;
         anim = new Animation(200, Assets.player);
     }

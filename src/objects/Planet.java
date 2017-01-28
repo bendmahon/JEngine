@@ -1,17 +1,20 @@
 package objects;
 
 
-import core.Main;
+
 import util.Collisions;
 
 import java.awt.*;
+
+import static core.Main.mouse;
+import static core.Main.mousePos;
 
 public class Planet extends Entity{
     public double atmosphere;
     public double temperature;
     public int radius;
-    public Planet(Point position, int radius, Point velocity, double atmosphere, double temperature){
-        super(position, velocity);
+    public Planet(Point position, int radius, Point velocity, Point acceleration, double atmosphere, double temperature){
+        super(position, velocity, acceleration);
         this.temperature = temperature;
         this.atmosphere = atmosphere;
         this.radius = radius;
@@ -24,8 +27,15 @@ public class Planet extends Entity{
 
     @Override
     public void tick() {
-        if(Collisions.pointCircleCollision(Main.mousePos, new Point(position.x+radius, position.y+radius), radius)){
-
+        //UI Handling
+//        System.out.println(mouse.pos);
+        if(mouse.clicked && Collisions.pointCircleCollision(mouse.pos, this.position, this.radius)){
+            temperature = 0;
+            atmosphere = 1;
+            mousePos = new Point(-1, -1);
+        }
+        if(!mouse.clicked && Collisions.pointCircleCollision(mouse.pos, this.position, this.radius)){
+            System.out.println("Hover boys");
         }
         this.temperature += 0.002;
         this.atmosphere -= 0.002;
@@ -33,7 +43,13 @@ public class Planet extends Entity{
         if(this.temperature < 0) this.temperature = 0;
         if(this.atmosphere < 0) this.atmosphere = 0;
         if(this.temperature > 1) this.temperature = 1;
-        if(this.atmosphere > 1) this.atmosphere= 1;
+        if(this.atmosphere > 1) this.atmosphere = 1;
+
+        //motion physics
+        velocity.x += acceleration.x;
+        velocity.y += acceleration.y;
+        position.x += velocity.x;
+        position.y += velocity.y;
     }
 
 

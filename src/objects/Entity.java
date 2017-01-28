@@ -9,12 +9,14 @@ public abstract class Entity {
     public boolean isSolid = true; //entity solid by default
     public Point position = new Point();
     public Point velocity = new Point();
+    public Point acceleration = new Point();
     public Rectangle bounds;
     public Main game;//collision bounds
 
-    public Entity(Point position, Point velocity){
+    public Entity(Point position, Point velocity, Point acceleration){
         this.position = position;
         this.velocity = velocity;
+        this.acceleration = acceleration;
     }
 
     public abstract void tick();
