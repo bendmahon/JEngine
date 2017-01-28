@@ -17,10 +17,11 @@ public class MouseOverBox extends Element {
     }
     public void render(Graphics2D g){
         g.setColor(backgroundColor);
-//        g.fillRect(screenPosition.x, screenPosition.y, dimensions.x, dimensions.y);
-        g.fillRect(mouse.pos.x - dimensions.x/2, mouse.pos.y, dimensions.x, dimensions.y);
+        g.fillRect(mouse.pos.x, mouse.pos.y - dimensions.y, dimensions.x, dimensions.y);
+//        g.fillRect(mouse.pos.x - dimensions.x/2, mouse.pos.y, dimensions.x, dimensions.y);
         g.setColor(Color.white);
-//        g.drawRect(screenPosition.x, screenPosition.y, dimensions.x, dimensions.y);
-        g.drawRect(mouse.pos.x - dimensions.x/2, mouse.pos.y, dimensions.x, dimensions.y);
+        g.drawRect(mouse.pos.x, mouse.pos.y - dimensions.y, dimensions.x, dimensions.y);
+        if(label != null) g.drawString(label, mouse.pos.x + 5, mouse.pos.y - dimensions.y + 15);
+//        g.drawRect(mouse.pos.x - dimensions.x/2, mouse.pos.y, dimensions.x, dimensions.y);
     }
 }

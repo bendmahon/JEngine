@@ -9,7 +9,7 @@ public class Mouse extends MouseInputAdapter {
     public boolean clicked;
 
     public void mouseMoved(MouseEvent e){
-        System.out.println("She's movin'!");
+//        System.out.println("She's movin'!");
         updatePos(e);
     }
     public void mousePressed(MouseEvent e) {

@@ -13,7 +13,7 @@ public class TemperatureBar extends PlanetStatBar {
     public TemperatureBar(Point screenPosition, Point dimensions, Planet planet, Color startColor, Color endColor){
         super(screenPosition, dimensions, planet, startColor, endColor, "Temp");
         mouseOverElement = new MouseOverBox(new Point(screenPosition.x - dimensions.x, screenPosition.y),
-                new Point(100, 50), "Temperature");
+                new Point(100, 50), "Temperature:");
     }
 
     @Override
@@ -24,6 +24,7 @@ public class TemperatureBar extends PlanetStatBar {
             mouseOver = false;
         }
         fullness = planet.temperature;
+        mouseOverElement.label = String.format("%.4s", planet.temperature);
         currentColor = barColor(fullness);
     }
 }

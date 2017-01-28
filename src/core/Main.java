@@ -33,7 +33,6 @@ public class Main extends Canvas implements Runnable {
     private StatBar atmoBar = null;
     public static Font FONT;
     public static Mouse mouse = new Mouse();
-    public static Point mousePos = new Point(0, 0);
     ArrayList<Element> uiElements;
     public static Color backgroundColor = new Color(20, 20, 20);
     private synchronized void start() {
@@ -170,12 +169,6 @@ public class Main extends Canvas implements Runnable {
      */
     public KeyInput getKeyInput() {
         return keyInput;
-    }
-
-    public static void updateMouse(Point mousePosition){
-        mousePos = mousePosition;
-        System.out.println(Collisions.pointCircleCollision(mousePos, planet.position, planet.radius));
-//        Killer.killMyFriend("Nick");
     }
 
 }

@@ -7,12 +7,11 @@ import util.Collisions;
 import java.awt.*;
 
 import static core.Main.mouse;
-import static core.Main.mousePos;
 
 public class Planet extends Entity{
     public double atmosphere;
     public double temperature;
-    public int radius;
+    private int radius;
     public Planet(Point position, int radius, Point velocity, Point acceleration, double atmosphere, double temperature){
         super(position, velocity, acceleration);
         this.temperature = temperature;
@@ -32,14 +31,14 @@ public class Planet extends Entity{
         if(mouse.clicked && Collisions.pointCircleCollision(mouse.pos, this.position, this.radius)){
             temperature = 0;
             atmosphere = 1;
-            mousePos = new Point(-1, -1);
+//            mouse.pos = new Point(-1, -1);
         }
         if(!mouse.clicked && Collisions.pointCircleCollision(mouse.pos, this.position, this.radius)){
             System.out.println("Hover boys");
         }
         this.temperature += 0.002;
         this.atmosphere -= 0.002;
-        //Check values to make sure they are valid
+        //Constrain Planet data values
         if(this.temperature < 0) this.temperature = 0;
         if(this.atmosphere < 0) this.atmosphere = 0;
         if(this.temperature > 1) this.temperature = 1;
