@@ -6,7 +6,8 @@ import java.awt.*;
 public class Planet extends Entity{
     public double atmosphere;
     public double temperature;
-    public Planet(Point position, Point velocity, double atmosphere, double temperature){
+    public Point dimensions;
+    public Planet(Point position, Point dimensions, Point velocity, double atmosphere, double temperature){
         super(position, velocity);
         this.temperature = temperature;
         this.atmosphere = atmosphere;

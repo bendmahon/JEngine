@@ -14,5 +14,8 @@ public class Collisions {
         return p.x>=rect.x&&p.x<=rect.x+rect.width&&p.y>=rect.y&&p.y<=rect.y+rect.height;
     }
     //TODO: pointCircleCollision
+    public static boolean pointCircleCollision(Point p, Point circle, int radius){
+        return false;
+    }
     //TODO: circleCircleCollision
 }

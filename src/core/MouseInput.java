@@ -1,30 +1,23 @@
 package core;
 
+import javax.swing.event.MouseInputAdapter;
+import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-public class MouseInput implements MouseListener{
-
-    public MouseInput(){
-
+public class MouseInput extends MouseInputAdapter implements MouseMotionListener{
+    public int x;
+    public int y;
+    boolean pressed;
+    public void mousePressed(MouseEvent e) {
+        x = e.getX();
+        y = e.getY();
+        System.out.println(String.format("Mouse pressed at x: %s, y: %s", x, y));
+        pressed = true;
     }
 
-    public void mouseEntered(MouseEvent e){
-        //System.out.println("In Box");
-    }
-
-    public void mouseExited(MouseEvent e ){
-        //System.out.println("out box");
-    }
-
-    public void mousePressed(MouseEvent e){
-        //System.out.println("press");
-    }
-
-    public void mouseReleased(MouseEvent e){
-        //System.out.println("release");
-    }
-
-    public void mouseClicked(MouseEvent e){
+    public void mouseReleased(MouseEvent e) {
+        System.out.println(String.format("Mouse released at x: %s, y: %s", e.getX(), e.getY()));
+        Main.updateMouse(new Point(e.getX(), e.getY()));
     }
 }

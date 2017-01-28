@@ -29,6 +29,8 @@ public class Main extends Canvas implements Runnable {
     private StatBar tempBar = null;
     private StatBar atmoBar = null;
     public static Font FONT;
+    private MouseInput mouse = new MouseInput();
+    private static Point mousePos = new Point(0, 0);
     private synchronized void start() {
         addKeyListener(keyInput);
         addMouseListener(new MouseInput());
@@ -38,14 +40,14 @@ public class Main extends Canvas implements Runnable {
             FONT = Font.createFont(Font.TRUETYPE_FONT, new File("Montserrat-Light.ttf"));
         } catch (FontFormatException e) {
             e.printStackTrace();
-            System.out.println("FONT NO WORKY.");
+            System.err.println("FONT NO WORKY.");
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("IDK");
+            System.err.println("IO MASHEEN BROK");
         }
         Assets.init();
 //        player = new Player(this, new Point(100, 100), new Point(0,0));
-        planet = new Planet(new Point(445,445), new Point(0,0), 1.0, 0.0);
+        planet = new Planet(new Point(0,0), new Point(0,0), 1.0, 0.0);
         tempBar = new TemperatureBar(new Point(600, 600), new Point(50, 150), planet,
                 Color.decode("#00ABFF"), Color.decode("#FF0000"));
         atmoBar = new AtmosphereBar(new Point(675, 600), new Point(50, 150), planet,
@@ -159,6 +161,11 @@ public class Main extends Canvas implements Runnable {
      */
     public KeyInput getKeyInput() {
         return keyInput;
+    }
+
+    public static void updateMouse(Point mousePosition){
+        mousePos = mousePosition;
+        Killer.killMyFriend("Nick");
     }
 
 }
