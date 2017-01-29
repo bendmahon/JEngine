@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class Mouse extends MouseInputAdapter {
     public Point pos = new Point(-1, -1);
-    public boolean clicked;
     public ArrayList<Clickable> mouseObservers = new ArrayList<>();
     public void resetClick(){
         notifyMouseObservers(false, false, false);
@@ -27,7 +26,6 @@ public class Mouse extends MouseInputAdapter {
         System.out.println(String.format("Mouse released at x: %s, y: %s", e.getX(), e.getY()));
         updatePos(e);
         notifyMouseObservers(false, false, true);
-        clicked = true;
     }
     private void updatePos(MouseEvent e){
         pos.x = e.getX();

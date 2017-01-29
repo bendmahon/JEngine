@@ -1,5 +1,6 @@
 package core;
 
+import objects.Entity;
 import objects.Planet;
 import ui.Element;
 import ui.bars.AtmosphereBar;
@@ -22,12 +23,11 @@ public class Main extends Canvas implements Runnable {
     private boolean running = false;
     private Thread thread;
     private KeyInput keyInput = new KeyInput();
-
-    private static Planet planet = null;
     private Font FONT;
     public static Mouse mouse = new Mouse();
     private static ArrayList<Element> uiElementsBottomLayer;
     public static ArrayList<Element> uiElementsTopLayer;
+    public static ArrayList<Entity> entities;
     public static Color backgroundColor = new Color(20, 20, 20);
     private synchronized void start() {
         addKeyListener(keyInput);
@@ -45,8 +45,12 @@ public class Main extends Canvas implements Runnable {
             System.err.println("IO MASHEEN BROK");
         }
         Assets.init();
-//        player = new Player(this, new Point(100, 100), new Point(0,0));
-        planet = new Planet(new Point(0,0), 50, new Point(0,0), new Point(0, 0), 1.0, 0.0);
+
+        //Create Game Entities
+        Planet planet = new Planet(new Point(0,0), 50, new Point(0,0), new Point(0, 0), 1.0, 0.0);
+        entities = new ArrayList<>();
+        entities.add(planet);
+
         //Create UI Elements
         StatBar tempBar = new TemperatureBar(new Point(600, 600), new Point(50, 150), planet,
                 Color.decode("#00ABFF"), Color.decode("#FF0000"));
@@ -56,6 +60,7 @@ public class Main extends Canvas implements Runnable {
         uiElementsTopLayer = new ArrayList<>();
         uiElementsBottomLayer.add(tempBar);
         uiElementsBottomLayer.add(atmoBar);
+
         //Create thread
         if(running) return;
         running = true;
@@ -110,8 +115,9 @@ public class Main extends Canvas implements Runnable {
 
     private void tick(){
         keyInput.tick();
-        planet.tick();
-        for(Element e : uiElementsBottomLayer) e.tick();
+        for(Entity en : entities) en.tick();
+        for(Element el : uiElementsBottomLayer) el.tick();
+
         //reset inputs
         mouse.resetClick();
     }
@@ -136,7 +142,9 @@ public class Main extends Canvas implements Runnable {
 
         //draw stuff
         g2d.setFont(new Font(FONT.getFontName(), Font.PLAIN, 14));
-        planet.render(g2d);
+        //Render game entities
+        for(Entity en : entities) en.render(g2d);
+
         //render ui elements
         for(Element e : uiElementsBottomLayer) e.render(g2d);
         for(Element e : uiElementsTopLayer) e.render(g2d);
