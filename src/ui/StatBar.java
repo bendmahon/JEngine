@@ -1,6 +1,10 @@
 package ui;
 
+import util.Collisions;
+
 import java.awt.*;
+
+import static core.Main.uiElementsTopLayer;
 
 public abstract class StatBar extends Element{
     protected double fullness;
@@ -8,7 +12,7 @@ public abstract class StatBar extends Element{
     public StatBar(Point screenPosition, Point dimensions, String label){
         super(screenPosition, dimensions, label);
         this.currentColor = new Color(0, 0, 0);
-        this.mouseOverElement = new MouseOverBox(screenPosition, dimensions, "Statbar mouseoverbox");
+        this.mouseOverElement = null;
     }
 
     public void render(Graphics2D g){
@@ -16,8 +20,13 @@ public abstract class StatBar extends Element{
         g.drawRect(screenPosition.x, screenPosition.y, dimensions.x, dimensions.y );
         g.fillRect(screenPosition.x, (int) (screenPosition.y + dimensions.y - fullness * dimensions.y+1), dimensions.x+1, (int) (fullness * dimensions.y));
         if(label != null) g.drawString(label, screenPosition.x, screenPosition.y - 25);
-        if(mouseOver) mouseOverElement.render(g);
+        if(mouseOver && mouseOverElement != null) uiElementsTopLayer.add(mouseOverElement);
     }
 
     public abstract void tick();
+
+    @Override
+    public boolean mouseCollide(Point mousePos) {
+        return Collisions.pointRectCollision(mousePos, new Rectangle(screenPosition.x, screenPosition.y, dimensions.x, dimensions.y));
+    }
 }

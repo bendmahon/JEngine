@@ -28,14 +28,20 @@ public class Planet extends Entity{
     public void tick() {
         //UI Handling
 //        System.out.println(mouse.pos);
-        if(mouse.clicked && Collisions.pointCircleCollision(mouse.pos, this.position, this.radius)){
+//        if(mouse.clicked && Collisions.pointCircleCollision(mouse.pos, this.position, this.radius)){
+//            temperature = 0;
+//            atmosphere = 1;
+////            mouse.pos = new Point(-1, -1);
+//        }
+        System.out.println(clicked);
+        if(clicked){
             temperature = 0;
             atmosphere = 1;
-//            mouse.pos = new Point(-1, -1);
         }
-        if(!mouse.clicked && Collisions.pointCircleCollision(mouse.pos, this.position, this.radius)){
-            System.out.println("Hover boys");
-        }
+        if(!clicked && mouseOver) System.out.println("hover planet");
+//        if(!mouse.clicked && Collisions.pointCircleCollision(mouse.pos, this.position, this.radius)){
+//            System.out.println("Hover boys");
+//        }
         this.temperature += 0.002;
         this.atmosphere -= 0.002;
         //Constrain Planet data values
@@ -51,5 +57,8 @@ public class Planet extends Entity{
         position.y += velocity.y;
     }
 
-
+    @Override
+    public boolean mouseCollide(Point mousePos){
+        return Collisions.pointCircleCollision(mouse.pos, position, radius);
+    }
 }

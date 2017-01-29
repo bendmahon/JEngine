@@ -18,7 +18,6 @@ public class TemperatureBar extends PlanetStatBar {
 
     @Override
     public void tick() {
-        mouseOver = Collisions.pointRectCollision(mouse.pos, new Rectangle(screenPosition.x, screenPosition.y, dimensions.x, dimensions.y));
         fullness = planet.temperature;
         mouseOverElement.label = String.format("%.4s", planet.temperature);
         currentColor = barColor(fullness);

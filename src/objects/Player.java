@@ -47,4 +47,14 @@ public class Player extends Entity{
             velocity.x = speed;
         }
     }
+
+    @Override
+    public void clickNotify(Point mousePos, boolean move, boolean click, boolean release) {
+        //nothing yet, focusing on UI
+    }
+
+    @Override
+    public boolean mouseCollide(Point mousePos) {
+        return false;
+    }
 }

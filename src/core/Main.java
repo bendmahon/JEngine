@@ -26,7 +26,8 @@ public class Main extends Canvas implements Runnable {
     private static Planet planet = null;
     private Font FONT;
     public static Mouse mouse = new Mouse();
-    private ArrayList<Element> uiElements;
+    private static ArrayList<Element> uiElementsBottomLayer;
+    public static ArrayList<Element> uiElementsTopLayer;
     public static Color backgroundColor = new Color(20, 20, 20);
     private synchronized void start() {
         addKeyListener(keyInput);
@@ -51,9 +52,10 @@ public class Main extends Canvas implements Runnable {
                 Color.decode("#00ABFF"), Color.decode("#FF0000"));
         StatBar atmoBar = new AtmosphereBar(new Point(675, 600), new Point(50, 150), planet,
                 Color.decode("#333333"), Color.decode("#00D5FF"));
-        uiElements = new ArrayList<>();
-        uiElements.add(tempBar);
-        uiElements.add(atmoBar);
+        uiElementsBottomLayer = new ArrayList<>();
+        uiElementsTopLayer = new ArrayList<>();
+        uiElementsBottomLayer.add(tempBar);
+        uiElementsBottomLayer.add(atmoBar);
         //Create thread
         if(running) return;
         running = true;
@@ -109,7 +111,9 @@ public class Main extends Canvas implements Runnable {
     private void tick(){
         keyInput.tick();
         planet.tick();
-        for(Element e : uiElements) e.tick();
+        for(Element e : uiElementsBottomLayer) e.tick();
+        //reset inputs
+        mouse.resetClick();
     }
 
     private void render(){
@@ -134,7 +138,9 @@ public class Main extends Canvas implements Runnable {
         g2d.setFont(new Font(FONT.getFontName(), Font.PLAIN, 14));
         planet.render(g2d);
         //render ui elements
-        for(Element e : uiElements) e.render(g2d);
+        for(Element e : uiElementsBottomLayer) e.render(g2d);
+        for(Element e : uiElementsTopLayer) e.render(g2d);
+        uiElementsTopLayer.clear();
         //Throw away drawings and show buffer
         g2d.dispose();
         bs.show();
