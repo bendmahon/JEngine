@@ -27,17 +27,15 @@ public abstract class Element implements Clickable{
 
     public void clickNotify(Point mousePos, boolean move, boolean press, boolean release) {
         if(move){
-           mouseOver = mouseCollide(mousePos);
+            mouseOver = mouseCollide(mousePos);
         }
         if(press){
             if(mouseCollide(mousePos)) pressed = true;
         }
-        if(release && mouseCollide(mousePos)){
-            clicked = true;
-        }
-        if(!release){
+        clicked = pressed && release && mouseCollide(mousePos);
+
+        if(release){
             pressed = false;
-            clicked = false;
         }
 
     }

@@ -32,13 +32,15 @@ public abstract class Entity implements Clickable{
         if(press){
             if(mouseCollide(mousePos)) pressed = true;
         }
-        if(release && mouseCollide(mousePos)){
-            clicked = true;
-        }
-        if(!release){
+        clicked = pressed && release && mouseCollide(mousePos);
+
+        if(release){
             pressed = false;
-            clicked = false;
         }
+//        if(!release){
+//            pressed = false;
+//            clicked = false;
+//        }
 
     }
 }
