@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import static core.Main.backgroundColor;
 import static core.Main.mouse;
@@ -10,8 +11,8 @@ public class MouseOverBox extends Element {
     private int mouseOffsetY = 0;
     private int textOffsetX = mouseOffsetX + 10;
     private int textOffsetY = 15;
-    public MouseOverBox(Point screenPosition, Point dimensions, String label){
-        super(screenPosition, dimensions, label);
+    public MouseOverBox(Point screenPosition, Point dimensions, ArrayList<String> text){
+        super(screenPosition, dimensions, text);
     }
     public void tick(){
 
@@ -22,7 +23,14 @@ public class MouseOverBox extends Element {
 //        g.fillRect(mouse.pos.x - dimensions.x/2, mouse.pos.y, dimensions.x, dimensions.y);
         g.setColor(Color.white);
         g.drawRect(mouse.pos.x + mouseOffsetX, mouse.pos.y, dimensions.x, dimensions.y);
-        if(label != null) g.drawString(label, mouse.pos.x + textOffsetX, mouse.pos.y + textOffsetY);
+        if(text.size() > 0){
+            int nLine = 1;
+            for(String line : text){
+                g.drawString(line, mouse.pos.x + textOffsetX, mouse.pos.y + nLine*textOffsetY);
+                nLine++;
+            }
+//            g.drawString(label, mouse.pos.x + textOffsetX, mouse.pos.y + textOffsetY);
+        }
 //        g.drawRect(mouse.pos.x - dimensions.x/2, mouse.pos.y, dimensions.x, dimensions.y);
     }
 

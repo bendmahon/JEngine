@@ -4,13 +4,14 @@ import objects.Planet;
 import ui.StatBar;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 class PlanetStatBar extends StatBar {
     Planet planet;
     private Color startColor;
     private Color endColor;
-    PlanetStatBar(Point screenPosition, Point dimensions, Planet planet, Color startColor, Color endColor, String label){
-        super(screenPosition, dimensions, label);
+    PlanetStatBar(Point screenPosition, Point dimensions, Planet planet, Color startColor, Color endColor, ArrayList<String> text){
+        super(screenPosition, dimensions, text);
         this.planet = planet;
         this.startColor = startColor;
         this.endColor = endColor;

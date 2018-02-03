@@ -48,17 +48,21 @@ public class Main extends Canvas implements Runnable {
         Assets.init();
 
         //Create Game Entities
-        Planet planet = new Planet(400, 400, 0, 0, 0, 0, 1.0, 0.0);
+        Planet planet = new Planet("Circus",400, 400, 0, 0, 0, 0, 1.0, 0.0);
         Player player = new Player(this, 200, 200, 0, 0, 0, 0);
         entities = new ArrayList<>();
         entities.add(planet);
         entities.add(player);
 
         //Create UI Elements
+        ArrayList<String> tempBarText = new ArrayList<>();
+        ArrayList<String> atmoBarText = new ArrayList<>();
+        tempBarText.add("Temperature");
+        atmoBarText.add("Atmosphere");
         StatBar tempBar = new TemperatureBar(new Point(600, 600), new Point(50, 150), planet,
-                Color.decode("#00ABFF"), Color.decode("#FF0000"));
+                Color.decode("#00ABFF"), Color.decode("#FF0000"), tempBarText);
         StatBar atmoBar = new AtmosphereBar(new Point(675, 600), new Point(50, 150), planet,
-                Color.decode("#333333"), Color.decode("#00D5FF"));
+                Color.decode("#333333"), Color.decode("#00D5FF"), atmoBarText);
         uiElementsBottomLayer = new ArrayList<>();
         uiElementsTopLayer = new ArrayList<>();
         uiElementsBottomLayer.add(tempBar);

@@ -4,21 +4,24 @@ package ui;
 import core.Clickable;
 
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import static core.Main.mouse;
 
 public abstract class Element implements Clickable{
     protected Point screenPosition;
     protected Point dimensions;
-    public String label;
+//    public String label;
+    public ArrayList<String> text = new ArrayList<>();
     public boolean mouseOver;
     public boolean pressed;
     public boolean clicked;
     protected MouseOverBox mouseOverElement;
-    Element(Point screenPosition, Point dimensions, String label){
+    Element(Point screenPosition, Point dimensions, ArrayList<String> text){
         this.screenPosition = screenPosition;
         this.dimensions = dimensions;
-        this.label = label;
+        this.text = text;
         this.mouseOverElement = null;
         mouse.mouseObservers.add(this);
     }
