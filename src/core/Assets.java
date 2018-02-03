@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class Assets {
 
-    private static final int DIM = 32;
+    private static final int DIM = 64;
 
     //Static Images
     public static BufferedImage background, asteroid, bullet;
@@ -21,7 +21,13 @@ public class Assets {
 //        for(int i = 0; i < 6; i++){
 //            player[i] = playerSpriteSheet.crop(i, 0, DIM);
 //        }
+        SpriteSheet shipSheet = new SpriteSheet(ImageLoader.loadImage("spaceshipsheet.png"));
+        player = new BufferedImage[4];
+        for(int i = 0; i<4; i++){
+            player[i] = shipSheet.crop(i, 0, DIM);
+        }
 
+//        player = ImageLoader.loadImage("jeplayer.png");
         //column    //row   //side length
         //grass  = background.crop(0, 0, DIM);
 //        asteroid = ImageLoader.loadImage("sprites/asteroid.png");

@@ -1,22 +1,31 @@
 package objects;
 
 import core.Clickable;
+import ui.MouseOverBox;
 
 import java.awt.*;
 
 import static core.Main.mouse;
 
 public abstract class Entity implements Clickable{
-    Point position = new Point();
-    Point velocity = new Point();
-    Point acceleration = new Point();
+    double x;
+    double y;
+    double vx;
+    double vy;
+    double ax;
+    double ay;
     public boolean mouseOver;
     public boolean pressed;
     public boolean clicked;
-    Entity(Point position, Point velocity, Point acceleration) {
-        this.position = position;
-        this.velocity = velocity;
-        this.acceleration = acceleration;
+    protected MouseOverBox mouseOverElement;
+    Entity(double x, double y, double vx, double vy, double ax, double ay) {
+        this.x = x;
+        this.y = y;
+        this.vx = vx;
+        this.vy = vy;
+        this.ax = ax;
+        this.ay = ay;
+        this.mouseOverElement = null;
         mouse.mouseObservers.add(this);
     }
 
@@ -37,10 +46,6 @@ public abstract class Entity implements Clickable{
         if(release){
             pressed = false;
         }
-//        if(!release){
-//            pressed = false;
-//            clicked = false;
-//        }
 
     }
 }

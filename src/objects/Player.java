@@ -6,45 +6,71 @@ import core.KeyInput;
 import core.Main;
 
 import java.awt.*;
-
 public class Player extends Entity{
-    private int speed = 1;
+    private int speed = 4;
     private Animation anim;
     private KeyInput keyInput;
     private Main game;
+    private double shipA = 0.2;
 
-    public Player(Main game, Point position, Point velocity, Point accleration){
-        super(position, velocity, accleration);
+    public Player(Main game, double x, double y, double vx, double vy, double ax, double ay){
+        super(x, y, vx, vy, ax, ay);
         this.game = game;
         anim = new Animation(200, Assets.player);
     }
 
     public void render(Graphics2D g){
-//        g.drawImage(anim.getCurrentFrame(), position.x, position.y, 32, 32, null);
-        g.setPaint(Color.GREEN);
-        g.fillOval(position.x, position.y, 50, 50);
+//        g.drawImage(Assets.player, (int) x, (int) y, 32, 32, null);
+        g.drawImage(anim.getCurrentFrame(), (int) x, (int) y, 64, 64, null);
+//        g.setPaint(Color.GREEN);
+//        g.fillOval(position.x, position.y, 50, 50);
     }
 
     public void tick(){
-//        anim.tick();
+        anim.tick();
         input();
-        position.x += velocity.x;
-        position.y += velocity.y;
+        vx += ax;
+        vy += ay;
+        x += vx;
+        y += vy;
     }
 
     public void input(){
-        velocity = new Point(0,0);
+        int directions = 0;
         if(game.getKeyInput().up || game.getKeyInput().w){
-            velocity.y = -speed;
+            vy = -speed;
+            directions++;
         }
         if(game.getKeyInput().down || game.getKeyInput().s){
-            velocity.y = speed;
+            vy = speed;
+            directions++;
         }
         if(game.getKeyInput().left || game.getKeyInput().a){
-            velocity.x = -speed;
+            vx = -speed;
+            directions++;
         }
         if(game.getKeyInput().right || game.getKeyInput().d){
-            velocity.x = speed;
+            vx = speed;
+            directions++;
+        }
+        if(directions > 1){
+            vx = vx * 0.7;
+            vy = vy * 0.7;
+        }
+        else{
+            if(vx > 0) ax = -shipA;
+            else if(vx < 0) ax = shipA;
+            if(vy > 0) ay = -shipA;
+            else if(vy < 0) ay = shipA;
+
+            if(vx >= -shipA*2 && vx <= shipA*2){
+                ax = 0;
+                vx = 0;
+            }
+            if(vy >= -shipA*2 && vy <= shipA*2){
+                ay = 0;
+                vy = 0;
+            }
         }
     }
 

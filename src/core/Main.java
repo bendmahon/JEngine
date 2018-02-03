@@ -2,6 +2,7 @@ package core;
 
 import objects.Entity;
 import objects.Planet;
+import objects.Player;
 import ui.Element;
 import ui.bars.AtmosphereBar;
 import ui.StatBar;
@@ -47,9 +48,11 @@ public class Main extends Canvas implements Runnable {
         Assets.init();
 
         //Create Game Entities
-        Planet planet = new Planet(new Point(0,0), 50, new Point(0,0), new Point(0, 0), 1.0, 0.0);
+        Planet planet = new Planet(400, 400, 0, 0, 0, 0, 1.0, 0.0);
+        Player player = new Player(this, 200, 200, 0, 0, 0, 0);
         entities = new ArrayList<>();
         entities.add(planet);
+        entities.add(player);
 
         //Create UI Elements
         StatBar tempBar = new TemperatureBar(new Point(600, 600), new Point(50, 150), planet,
